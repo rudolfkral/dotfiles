@@ -1,0 +1,46 @@
+[general]
+# List of accounts to be synced, separated by a comma.
+accounts = personal, work
+pythonfile = /home/praca/.offlineimap.py
+
+[Account personal]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = personal-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = personal-remote
+
+[Account work]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = work-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = work-remote
+
+[Repository personal-local]
+# OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
+type = GmailMaildir
+# Where should the mail be placed?
+localfolders = ~/mail_personal
+
+[Repository personal-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = Gmail
+remoteuser = adriankral@gmail.com
+remotepasseval = get_keepass_pw("~/keepass.kdbx", title="Mu4e", username="adriankral@gmail.com")
+folderfilter = lambda foldername: foldername in ['INBOX', '[Gmail]/Wysłane']
+# Necessary as of OfflineIMAP 6.5.4
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+[Repository work-local]
+# OfflineIMAP supports Maildir, GmailMaildir, and IMAP for local repositories.
+type = GmailMaildir
+# Where should the mail be placed?
+localfolders = ~/mail_work
+
+[Repository work-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = Gmail
+remoteuser = rudolf.kral@growbots.com
+remotepasseval = get_keepass_pw("~/keepass.kdbx", title="Mu4e", username="rudolf.kral@growbots.com")
+folderfilter = lambda foldername: foldername in ['INBOX', '[Gmail]/Sent Mail']
+# Necessary as of OfflineIMAP 6.5.4
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
